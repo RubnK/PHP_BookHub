@@ -2,6 +2,8 @@
 namespace App\Controllers;
 
 use App\Models\Book;
+use App\Models\Review;
+use App\Core\Database;
 
 class BookController {
     public function index() {
@@ -13,8 +15,9 @@ class BookController {
     }
 
     public function show($id) {
-        $title = 'Détail du livre | BookHub';
         $book = Book::getBookById($id);
+        $title = $book['title'].' | BookHub';
+        $reviews = Review::getByBookId($id);
         require_once __DIR__ . '/../Views/includes/header.php';
         require_once __DIR__ . '/../Views/book/show.php';
         require_once __DIR__ . '/../Views/includes/footer.php';
@@ -111,7 +114,7 @@ class BookController {
             return;
         }
     
-        $pdo = \App\Core\Database::getConnection();
+        $pdo = Database::getConnection();
     
         $stmt = $pdo->prepare("INSERT INTO authors (name, bio, birth_date, death_date)
                                VALUES (:name, :bio, :birth_date, :death_date)");
@@ -147,7 +150,7 @@ class BookController {
             return;
         }
     
-        $pdo = \App\Core\Database::getConnection();
+        $pdo = Database::getConnection();
     
         // Vérifie que le genre n’existe pas déjà (optionnel mais propre)
         $check = $pdo->prepare("SELECT COUNT(*) FROM genres WHERE LOWER(name) = LOWER(:name)");
@@ -165,5 +168,43 @@ class BookController {
     
         header('Location: /books/add');
         exit;
-    }    
+    }
+    public function storeReview() {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            header('Location: /');
+            exit;
+        }
+    
+        if (!isset($_SESSION['user'])) {
+            echo "Vous devez être connecté pour laisser un avis.";
+            return;
+        }
+    
+        $user_id = $_SESSION['user']['id'];
+        $book_id = (int) ($_POST['book_id'] ?? 0);
+        $rating = (int) ($_POST['rating'] ?? 0);
+        $comment = trim($_POST['comment'] ?? '');
+    
+        if ($book_id <= 0 || $rating < 1 || $rating > 5) {
+            echo "Données invalides.";
+            return;
+        }
+    
+        $pdo = Database::getConnection();
+    
+        $stmt = $pdo->prepare("
+            INSERT INTO reviews (book_id, user_id, rating, comment)
+            VALUES (:book_id, :user_id, :rating, :comment)
+        ");
+        $stmt->bindParam(':book_id', $book_id);
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->bindParam(':rating', $rating);
+        $stmt->bindParam(':comment', $comment);
+    
+        $stmt->execute();
+    
+        header("Location: /books/$book_id");
+        exit;
+    }
+    
 }

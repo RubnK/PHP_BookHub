@@ -5,24 +5,28 @@ class Router {
     private array $routes = [];
 
     public function get(string $path, callable $action): void {
-        $this->routes['GET'][$path] = $action;
+        $this->routes['GET'][] = ['path' => $path, 'action' => $action];
     }
 
     public function post(string $path, callable $action): void {
-        $this->routes['POST'][$path] = $action;
+        $this->routes['POST'][] = ['path' => $path, 'action' => $action];
     }
 
     public function run(): void {
-        $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        $uri = rtrim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
         $method = $_SERVER['REQUEST_METHOD'];
 
-        $action = $this->routes[$method][$uri] ?? null;
+        foreach ($this->routes[$method] ?? [] as $route) {
+            $pattern = "@^" . $route['path'] . "$@";
 
-        if ($action) {
-            call_user_func($action);
-        } else {
-            http_response_code(404);
-            echo "404 - Page not found";
+            if (preg_match($pattern, $uri, $matches)) {
+                array_shift($matches); // supprime le match complet
+                call_user_func_array($route['action'], $matches);
+                return;
+            }
         }
+
+        http_response_code(404);
+        echo "404 - Page not found";
     }
 }

@@ -1,0 +1,349 @@
+/* Page de détail du livre */
+.book-header {
+    display: flex;
+    gap: 3rem;
+    margin-bottom: 3rem;
+    align-items: flex-start;
+    animation: fadeIn 0.6s ease-out;
+}
+
+.book-cover-large {
+    width: 280px;
+    height: 400px;
+    object-fit: cover;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-lg);
+    transition: var(--transition-normal);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.book-cover-large:hover {
+    transform: translateY(-5px) rotate(1deg);
+    box-shadow: var(--shadow-xl);
+}
+
+.book-info {
+    flex: 1;
+}
+
+.book-info h1 {
+    font-size: 2.2rem;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+    position: relative;
+    display: inline-block;
+}
+
+.book-info h1::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: var(--gradient-accent);
+    border-radius: 3px;
+}
+
+.book-meta {
+    background: rgba(233, 236, 239, 0.4);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    margin-top: 1.5rem;
+}
+
+.book-meta p {
+    margin-bottom: 0.8rem;
+    font-size: 1.05rem;
+    color: var(--dark-color);
+}
+
+.meta-label {
+    font-weight: 600;
+    color: var(--secondary-color);
+    display: inline-block;
+    min-width: 100px;
+}
+
+/* Description du livre */
+.book-description {
+    background: white;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 3rem;
+    animation: fadeIn 0.6s ease-out 0.2s both;
+}
+
+.book-description h2 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    font-size: 1.6rem;
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+.book-description h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 2px;
+    background: var(--accent-color);
+}
+
+.book-description p {
+    line-height: 1.7;
+    color: var(--dark-color);
+    font-size: 1.05rem;
+}
+
+/* Section des avis */
+.reviews-section {
+    animation: fadeIn 0.6s ease-out 0.4s both;
+}
+
+.reviews-section h2 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    font-size: 1.6rem;
+    position: relative;
+}
+
+.reviews-section h2::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background: var(--gradient-accent);
+    border-radius: 3px;
+}
+
+.no-reviews {
+    text-align: center;
+    padding: 2rem;
+    background: rgba(233, 236, 239, 0.4);
+    border-radius: var(--border-radius);
+    color: var(--dark-color);
+    font-style: italic;
+}
+
+.reviews-list {
+    display: grid;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.review-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition-normal);
+}
+
+.review-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.reviewer {
+    font-weight: 600;
+    color: var(--secondary-color);
+}
+
+.rating-stars {
+    color: #ffc107;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+}
+
+.review-comment {
+    line-height: 1.6;
+    color: var(--dark-color);
+}
+
+/* Formulaire d'avis */
+.add-review {
+    background: white;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+    margin-top: 2rem;
+}
+
+.add-review h3 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    font-size: 1.4rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--secondary-color);
+}
+
+.star-rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    gap: 5px;
+}
+
+.star-rating input {
+    display: none;
+}
+
+.star-rating label {
+    font-size: 1.8rem;
+    color: #ddd;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.star-rating input:checked ~ label,
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+    color: #ffc107;
+}
+
+.star-rating input:checked + label {
+    color: #ffc107;
+}
+
+textarea {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid var(--gray-light);
+    border-radius: var(--border-radius-sm);
+    font-family: inherit;
+    transition: var(--transition-normal);
+}
+
+textarea:focus {
+    border-color: var(--accent-color);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(76, 201, 240, 0.2);
+}
+
+.submit-btn {
+    background: var(--gradient-primary);
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-normal);
+    box-shadow: 0 3px 10px rgba(67, 97, 238, 0.3);
+}
+
+.submit-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(67, 97, 238, 0.4);
+}
+
+.login-prompt {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.login-prompt a {
+    color: var(--primary-color);
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--transition-fast);
+    border-bottom: 2px solid transparent;
+}
+
+.login-prompt a:hover {
+    color: var(--secondary-color);
+    border-bottom-color: var(--accent-color);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .book-header {
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+    }
+    
+    .book-cover-large {
+        width: 220px;
+        height: 330px;
+    }
+    
+    .book-info {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .book-info h1 {
+        font-size: 1.8rem;
+    }
+    
+    .book-meta {
+        padding: 1.25rem;
+    }
+    
+    .book-description,
+    .add-review {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .book-header {
+        gap: 1.5rem;
+    }
+    
+    .book-cover-large {
+        width: 180px;
+        height: 270px;
+    }
+    
+    .book-info h1 {
+        font-size: 1.6rem;
+    }
+    
+    .meta-label {
+        display: block;
+        min-width: auto;
+        margin-bottom: 0.2rem;
+    }
+    
+    .star-rating label {
+        font-size: 1.5rem;
+    }
+}

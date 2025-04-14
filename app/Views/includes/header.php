@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="/assets/utils.css">
     <?php if($_SERVER['REQUEST_URI'] == '/books/add' || $_SERVER['REQUEST_URI'] == '/books/edit' || $_SERVER['REQUEST_URI'] == '/books/add_author' || $_SERVER['REQUEST_URI'] == '/books/add_genre'): ?>
         <link rel="stylesheet" href="/assets/forms.css">
+    <?php elseif(preg_match('#^/books(/|$)#', $_SERVER['REQUEST_URI'])): ?>
+        <link rel="stylesheet" href="/assets/book.css">
     <?php endif; ?>
 </head>
 <body>
