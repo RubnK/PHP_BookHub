@@ -1,10 +1,12 @@
 <?php
 namespace App\Controllers;
 
+use App\Models\Book;
+
 class BookController {
     public function index() {
         $title = 'Livres | BookHub';
-        // TODO: récupérer les livres via Book model
+        $books = Book::getAllBooks(); // Récupérer tous les livres
         require_once __DIR__ . '/../Views/includes/header.php';
         require_once __DIR__ . '/../Views/book/index.php';
         require_once __DIR__ . '/../Views/includes/footer.php';

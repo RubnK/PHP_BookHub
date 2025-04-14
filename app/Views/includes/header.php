@@ -9,6 +9,7 @@
 <header>
     <a href="/" class="logo"><img src="/assets/logo.png" alt="Logo BookHub"><h1>BookHub</h1></a>
     <nav>
+        <a href="/books">Livres</a>
         <a href="/add">Ajouter un livre</a>
         <?php if (isset($_SESSION['user'])): ?>
             <span>👤 <?= htmlspecialchars($_SESSION['user']['username']) ?></span>

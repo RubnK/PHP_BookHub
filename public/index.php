@@ -6,6 +6,9 @@ use App\Controllers\HomeController;
 use App\Controllers\AuthController;
 use App\Controllers\BookController;
 
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
+$dotenv->load();
+
 $router = new Router();
 
 $router->get('/', [new HomeController(), 'index']);
