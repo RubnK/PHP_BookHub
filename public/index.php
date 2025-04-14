@@ -22,10 +22,23 @@ $router->get('/logout', [new AuthController(), 'logout']);
 
 // Books
 $router->get('/books', [new BookController(), 'index']);
-$router->get('/book/add', [new BookController(), 'add']);
-$router->post('/book/add', [new BookController(), 'store']);
-$router->get('/book/(\d+)', function ($id) {
+$router->get('/books/add', [new BookController(), 'add']);
+$router->post('/books/add', [new BookController(), 'store']);
+$router->get('/books/add_author', [new BookController(), 'addAuthor']);
+$router->post('/books/add_author', [new BookController(), 'storeAuthor']);
+$router->get('/books/add_genre', [new BookController(), 'addGenre']);
+$router->post('/books/add_genre', [new BookController(), 'storeGenre']);
+$router->get('/books/(\d+)', function ($id) {
     (new BookController())->show($id);
+});
+$router->get('/books/(\d+)/edit', function ($id) {
+    (new BookController())->edit($id);
+});
+$router->post('/books/(\d+)/edit', function ($id) {
+    (new BookController())->update($id);
+});
+$router->post('/books/(\d+)/delete', function ($id) {
+    (new BookController())->delete($id);
 });
 
 $router->run();

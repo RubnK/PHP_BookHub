@@ -4,13 +4,17 @@
     <meta charset="UTF-8">
     <title><?= $title ?></title>
     <link rel="stylesheet" href="/assets/style.css">
+    <link rel="stylesheet" href="/assets/utils.css">
+    <?php if($_SERVER['REQUEST_URI'] == '/books/add' || $_SERVER['REQUEST_URI'] == '/books/edit' || $_SERVER['REQUEST_URI'] == '/books/add_author' || $_SERVER['REQUEST_URI'] == '/books/add_genre'): ?>
+        <link rel="stylesheet" href="/assets/forms.css">
+    <?php endif; ?>
 </head>
 <body>
 <header>
     <a href="/" class="logo"><img src="/assets/logo.png" alt="Logo BookHub"><h1>BookHub</h1></a>
     <nav>
         <a href="/books">Livres</a>
-        <a href="/add">Ajouter un livre</a>
+        <a href="/books/add">Ajouter un livre</a>
         <?php if (isset($_SESSION['user'])): ?>
             <span>👤 <?= htmlspecialchars($_SESSION['user']['username']) ?></span>
             <a href="/logout">Déconnexion</a>

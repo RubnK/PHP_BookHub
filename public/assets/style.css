@@ -1,322 +1,144 @@
-:root {
-    --primary-color: #4361ee;
-    --primary-light: #5a72f1;
-    --secondary-color: #3f37c9;
-    --accent-color: #4cc9f0;
-    --accent-light: #72d8f7;
-    --light-color: #f8f9fa;
-    --dark-color: #212529;
-    --gray-light: #e9ecef;
-    --success-color: #4bb543;
-    --warning-color: #f8961e;
-    --danger-color: #f94144;
-    
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12);
-    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
-    
-    --transition-fast: all 0.15s ease;
-    --transition-normal: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    --transition-slow: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-    
-    --border-radius: 8px;
-    --border-radius-sm: 4px;
-    
-    --gradient-primary: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    --gradient-accent: linear-gradient(135deg, var(--accent-color), var(--accent-light));
+/* Styles pour la liste de livres */
+.book-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 1rem 0;
+    margin: 2rem 0;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
-    line-height: 1.6;
-    color: var(--dark-color);
-    background-color: var(--light-color);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    overflow-x: hidden;
-}
-
-h1, h2, h3, h4 {
-    font-weight: 700;
-    line-height: 1.2;
-}
-
-header {
-    background: var(--gradient-primary);
-    color: white;
-    padding: 1.5rem 2rem;
-    box-shadow: var(--shadow-lg);
-    position: relative;
-    z-index: 100;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    transition: var(--transition-slow);
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    text-decoration: none;
-    transition: var(--transition-normal);
-}
-
-.logo img {
-    height: 40px;
-    width: auto;
-    transition: var(--transition-normal);
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-}
-
-.logo h1 {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: white;
-    margin: 0;
-    background: linear-gradient(to right, white, var(--accent-light));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    transition: var(--transition-normal);
-}
-
-.logo:hover {
-    transform: translateY(-2px);
-}
-
-.logo:hover img {
-    transform: rotate(-5deg) scale(1.05);
-    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
-}
-
-.logo:hover h1 {
-    background: linear-gradient(to right, var(--accent-light), white);
-    -webkit-background-clip: text;
-    background-clip: text;
-}
-
-nav {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-}
-
-nav a {
-    color: white;
-    text-decoration: none;
-    font-weight: 500;
-    padding: 0.5rem 1rem;
-    border-radius: var(--border-radius-sm);
+.book-item {
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-md);
     transition: var(--transition-normal);
     position: relative;
     overflow: hidden;
+    border-left: 4px solid var(--primary-color);
+    animation: fadeIn 0.6s ease-out forwards;
+    opacity: 0;
+    transform: translateY(10px);
 }
 
-nav a::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.1);
-    transition: var(--transition-normal);
-    z-index: -1;
-}
+/* Animation d'apparition séquentielle pour chaque livre */
+.book-item:nth-child(1) { animation-delay: 0.1s; }
+.book-item:nth-child(2) { animation-delay: 0.2s; }
+.book-item:nth-child(3) { animation-delay: 0.3s; }
+.book-item:nth-child(4) { animation-delay: 0.4s; }
+.book-item:nth-child(5) { animation-delay: 0.5s; }
+.book-item:nth-child(n+6) { animation-delay: 0.6s; }
 
-nav a:hover {
-    color: white;
-    transform: translateY(-2px);
-}
-
-nav a:hover::before {
-    left: 0;
-}
-
-nav a.active {
-    background: rgba(255, 255, 255, 0.2);
-    font-weight: 600;
-}
-
-nav span {
-    color: white;
-    font-weight: 500;
-    padding: 0.5rem 1rem;
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: var(--border-radius-sm);
-    transition: var(--transition-normal);
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-nav span::before {
-    content: '👤';
-    font-size: 0.9em;
-}
-
-nav span:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-    transform: translateY(-2px);
-}
-
-nav a[href="/login"],
-nav a[href="/register"],
-nav a[href="/logout"] {
-    background-color: rgba(255, 255, 255, 0.15);
-    padding: 0.5rem 1.25rem;
-    border-radius: 50px;
-}
-
-nav a[href="/login"]:hover,
-nav a[href="/register"]:hover,
-nav a[href="/logout"]:hover {
-    background-color: rgba(255, 255, 255, 0.25);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-hr {
-    border: 0;
-    height: 1px;
-    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.5), transparent);
-    margin: 1rem 0 0;
-    opacity: 0.5;
-    transition: var(--transition-slow);
-}
-
-header:hover hr {
-    background: linear-gradient(to right, transparent, white, transparent);
-    opacity: 0.8;
-    height: 2px;
-}
-
-main {
-    max-width: 1400px;
-    margin: 2rem auto;
-    padding: 0 2rem;
-    animation: fadeInUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
+@keyframes fadeIn {
     to {
         opacity: 1;
         transform: translateY(0);
     }
 }
 
-@keyframes pulse {
-    0%, 100% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.05);
-    }
+.book-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+    border-left: 4px solid var(--accent-color);
 }
 
-.wave-container {
-    position: relative;
-    overflow: hidden;
-}
-
-.wave {
+.book-item::before {
+    content: '';
     position: absolute;
-    bottom: 0;
+    top: 0;
     left: 0;
     width: 100%;
-    height: 100px;
-    background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="%23f5f7fa" opacity=".25"/><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" fill="%23f5f7fa" opacity=".5"/><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="%23f5f7fa"/></svg>');
-    background-size: cover;
-    background-repeat: no-repeat;
-    transform: rotate(180deg);
+    height: 100%;
+    background: linear-gradient(135deg, rgba(76, 201, 240, 0.1), rgba(67, 97, 238, 0.05));
     z-index: -1;
-    animation: waveAnimation 8s linear infinite;
+    opacity: 0;
+    transition: var(--transition-normal);
 }
 
-@keyframes waveAnimation {
-    0% {
-        transform: rotate(180deg) translateX(0);
-    }
-    100% {
-        transform: rotate(180deg) translateX(-50%);
-    }
+.book-item:hover::before {
+    opacity: 1;
 }
 
-@media (max-width: 992px) {
-    header {
-        flex-direction: column;
-        text-align: center;
-        gap: 1.5rem;
-        padding: 1.5rem;
-    }
-    
-    .logo {
-        justify-content: center;
-    }
-    
-    nav {
-        justify-content: center;
-    }
+.book-item h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+    position: relative;
+    display: inline-block;
 }
 
+.book-item img{
+    width: 100%;
+    height: auto;
+    border-radius: var(--border-radius);
+    margin-bottom: 1rem;
+    transition: var(--transition-normal);
+}
+
+.book-item h3::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent-color);
+    transition: var(--transition-normal);
+}
+
+.book-item:hover h3::after {
+    width: 100%;
+}
+
+.book-item p {
+    margin-bottom: 0.75rem;
+    color: var(--dark-color);
+    line-height: 1.5;
+}
+
+.book-item p strong {
+    color: var(--secondary-color);
+    font-weight: 600;
+}
+
+.book-list a {
+    text-decoration: none;
+}
+
+/* Style pour le message "Aucun livre" */
+.book-list + p {
+    text-align: center;
+    padding: 2rem;
+    color: var(--dark-color);
+    background-color: rgba(233, 236, 239, 0.5);
+    border-radius: var(--border-radius);
+    font-size: 1.1rem;
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Responsive design */
 @media (max-width: 768px) {
-    header {
+    .book-list {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1.5rem;
+    }
+    
+    .book-item {
         padding: 1.25rem;
-    }
-    
-    .logo h1 {
-        font-size: 1.5rem;
-    }
-    
-    nav {
-        gap: 1rem;
-    }
-    
-    nav a, nav span {
-        padding: 0.4rem 0.8rem;
-        font-size: 0.9rem;
-    }
-    
-    main {
-        padding: 0 1.25rem;
-        margin: 1.5rem auto;
     }
 }
 
 @media (max-width: 576px) {
-    nav {
-        flex-direction: column;
-        width: 100%;
+    .book-list {
+        grid-template-columns: 1fr;
     }
     
-    nav a, nav span {
-        width: 100%;
-        text-align: center;
-        padding: 0.5rem;
+    .book-item h3 {
+        font-size: 1.2rem;
     }
     
-    .logo {
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-    
-    .logo img {
-        height: 32px;
+    .book-item a {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.9rem;
     }
 }
