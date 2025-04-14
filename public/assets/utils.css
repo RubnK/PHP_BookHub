@@ -163,19 +163,10 @@ nav span {
     gap: 0.5rem;
 }
 
-nav span::before {
-    content: '👤';
-    font-size: 0.9em;
-}
-
-nav span:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-    transform: translateY(-2px);
-}
-
 nav a[href="/login"],
 nav a[href="/register"],
-nav a[href="/logout"] {
+nav a[href="/logout"],
+nav a[href="/profil"] {
     background-color: rgba(255, 255, 255, 0.15);
     padding: 0.5rem 1.25rem;
     border-radius: 50px;
@@ -183,7 +174,8 @@ nav a[href="/logout"] {
 
 nav a[href="/login"]:hover,
 nav a[href="/register"]:hover,
-nav a[href="/logout"]:hover {
+nav a[href="/logout"]:hover,
+nav a[href="/profil"]:hover {
     background-color: rgba(255, 255, 255, 0.25);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }

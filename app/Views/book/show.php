@@ -18,29 +18,10 @@
             <p><?= nl2br(htmlspecialchars($book['description'])) ?></p>
         </div>
 
-        <section class="reviews-section">
-            <h2>Avis des lecteurs</h2>
-            
-            <?php if (empty($reviews)): ?>
-                <p class="no-reviews">Aucun avis pour l'instant.</p>
-            <?php else: ?>
-                <div class="reviews-list">
-                    <?php foreach ($reviews as $review): ?>
-                        <div class="review-card">
-                            <div class="review-header">
-                                <span class="reviewer"><?= htmlspecialchars($review['username']) ?></span>
-                                <div class="rating-stars" data-rating="<?= $review['rating'] ?>"></div>
-                            </div>
-                            <p class="review-comment"><?= nl2br(htmlspecialchars($review['comment'])) ?></p>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-            <?php endif; ?>
-
-            <?php if (isset($_SESSION['user'])): ?>
+        <?php if (isset($_SESSION['user'])): ?>
                 <div class="add-review">
                     <h3>Ajouter un avis</h3>
-                    <form action="/reviews/add" method="POST" class="review-form">
+                    <form method="POST" class="review-form">
                         <input type="hidden" name="book_id" value="<?= $book['id'] ?>">
 
                         <div class="form-group">
@@ -58,6 +39,10 @@
                             <textarea name="comment" id="comment" rows="5" placeholder="Votre avis sur ce livre..."></textarea>
                         </div>
 
+                        <?php if (isset($error)): ?>
+                            <p style="color: red;"><?= htmlspecialchars($error) ?></p>
+                            <br>
+                        <?php endif; ?>
                         <button type="submit" class="submit-btn">Envoyer l'avis</button>
                     </form>
                 </div>
@@ -65,3 +50,27 @@
                 <p class="login-prompt"><a href="/login">Connectez-vous</a> pour laisser un avis.</p>
             <?php endif; ?>
         </section>
+
+        <br>
+
+        <section class="reviews-section">
+            <h2>Avis des lecteurs</h2>
+            
+            <?php if (empty($reviews)): ?>
+                <p class="no-reviews">Aucun avis pour l'instant.</p>
+            <?php else: ?>
+                <div class="reviews-list">
+                    <?php foreach ($reviews as $review): ?>
+                        <div class="review-card">
+                            <div class="review-header">
+                                <span class="reviewer"><?= htmlspecialchars($review['username']) ?></span>
+                                <div class="rating-stars" data-rating="<?= $review['rating'] ?>"></div>
+                            </div>
+                            <p class="review-comment"><?= nl2br(htmlspecialchars($review['comment'])) ?></p>
+                            <a href="/reviews/delete/<?= $review['id'] ?>" class="delete-review" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet avis ?');">Supprimer</a>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
+
+            

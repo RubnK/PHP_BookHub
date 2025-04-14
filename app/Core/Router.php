@@ -4,13 +4,13 @@ namespace App\Core;
 class Router {
     private array $routes = [];
 
-    public function get(string $path, callable $action): void {
+    public function get(string $path, $action): void {
         $this->routes['GET'][] = ['path' => $path, 'action' => $action];
     }
-
-    public function post(string $path, callable $action): void {
+    
+    public function post(string $path, $action): void {
         $this->routes['POST'][] = ['path' => $path, 'action' => $action];
-    }
+    }    
 
     public function run(): void {
         $uri = rtrim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');

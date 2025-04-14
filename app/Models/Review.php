@@ -40,4 +40,48 @@ class Review {
         $stmt->bindParam(':comment', $comment);
         return $stmt->execute();
     }
+
+    public static function delete(int $id): bool {
+        $pdo = Database::getConnection();
+        $stmt = $pdo->prepare("DELETE FROM reviews WHERE id = :id");
+        $stmt->bindParam(':id', $id);
+        return $stmt->execute();
+    }
+
+    public static function getAverageRating(int $bookId): float {
+        $pdo = Database::getConnection();
+        $stmt = $pdo->prepare("
+            SELECT AVG(rating) AS average_rating 
+            FROM reviews 
+            WHERE book_id = :book_id
+        ");
+        $stmt->bindParam(':book_id', $bookId);
+        $stmt->execute();
+        return (float) $stmt->fetchColumn() ?: 0.0;
+    }
+
+    public static function getReviewCount(int $bookId): int {
+        $pdo = Database::getConnection();
+        $stmt = $pdo->prepare("
+            SELECT COUNT(*) AS review_count 
+            FROM reviews 
+            WHERE book_id = :book_id
+        ");
+        $stmt->bindParam(':book_id', $bookId);
+        $stmt->execute();
+        return (int) $stmt->fetchColumn() ?: 0;
+    }
+
+    public static function getById(int $id): ?array {
+        $pdo = Database::getConnection();
+        $stmt = $pdo->prepare("
+            SELECT reviews.*, users.username 
+            FROM reviews
+            JOIN users ON users.id = reviews.user_id
+            WHERE reviews.id = :id
+        ");
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        return $stmt->fetch() ?: null;
+    }
 }

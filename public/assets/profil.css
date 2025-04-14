@@ -1,0 +1,99 @@
+.delete-account {
+    display: inline-block;
+    padding: 0.7rem 1.8rem;
+    margin: 1.5rem 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: white;
+    background: linear-gradient(135deg, var(--danger-color), #e63946);
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 4px 15px rgba(249, 65, 68, 0.3);
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    max-width: 300px;
+    border: 2px solid transparent;
+}
+
+.delete-account::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.25),
+        transparent
+    );
+    transition: 0.5s ease;
+}
+
+.delete-account:hover {
+    background: linear-gradient(135deg, #e63946, var(--danger-color));
+    box-shadow: 0 6px 20px rgba(249, 65, 68, 0.4);
+    transform: translateY(-3px);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.delete-account:hover::before {
+    left: 140%;
+}
+
+.delete-account:active {
+    transform: translateY(1px);
+    box-shadow: 0 3px 10px rgba(249, 65, 68, 0.3);
+}
+
+.delete-account::after {
+    content: '⚠️';
+    margin-left: 0.8rem;
+    font-size: 1.1em;
+    vertical-align: middle;
+    transition: all 0.3s ease;
+}
+
+.delete-account:hover::after {
+    transform: scale(1.2) rotate(10deg);
+    animation: shake 0.5s ease infinite alternate;
+}
+
+@keyframes shake {
+    0% { transform: scale(1.2) rotate(10deg); }
+    100% { transform: scale(1.2) rotate(-10deg); }
+}
+
+.delete-account-container {
+    text-align: center;
+    margin: 2rem 0;
+    padding: 2rem;
+    background: rgba(249, 65, 68, 0.05);
+    border-radius: 12px;
+    border: 1px dashed rgba(249, 65, 68, 0.3);
+    animation: pulseWarning 3s ease infinite;
+}
+
+@keyframes pulseWarning {
+    0% { border-color: rgba(249, 65, 68, 0.3); }
+    50% { border-color: rgba(249, 65, 68, 0.6); }
+    100% { border-color: rgba(249, 65, 68, 0.3); }
+}
+
+@media (max-width: 768px) {
+    .delete-account {
+        padding: 0.6rem 1.5rem;
+        font-size: 0.95rem;
+        max-width: 100%;
+    }
+    
+    .delete-account::after {
+        margin-left: 0.5rem;
+    }
+}

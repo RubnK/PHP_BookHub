@@ -14,7 +14,7 @@ class BookController {
         require_once __DIR__ . '/../Views/includes/footer.php';
     }
 
-    public function show($id) {
+    public function show($id, $error = null) {
         $book = Book::getBookById($id);
         $title = $book['title'].' | BookHub';
         $reviews = Review::getByBookId($id);
@@ -169,6 +169,7 @@ class BookController {
         header('Location: /books/add');
         exit;
     }
+
     public function storeReview() {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             header('Location: /');
@@ -186,12 +187,15 @@ class BookController {
         $comment = trim($_POST['comment'] ?? '');
     
         if ($book_id <= 0 || $rating < 1 || $rating > 5) {
-            echo "Données invalides.";
-            return;
+            $error = "Données invalides.";
         }
     
         if (Review::hasUserAlreadyReviewed($book_id, $user_id)) {
-            echo "Vous avez déjà laissé un avis pour ce livre.";
+            $error = "Vous avez déjà laissé un avis pour ce livre.";
+        }
+
+        if ($error) {
+            $this->show($book_id, $error);
             return;
         }
     
@@ -199,5 +203,22 @@ class BookController {
     
         header("Location: /books/$book_id");
         exit;
+    }
+
+    public function deleteReview($id) {
+        if (!isset($_SESSION['user'])) {
+            echo "Vous devez être connecté pour supprimer un avis.";
+            return;
+        }
+    
+        $review = Review::getById($id);
+    
+        if ($review && $review['user_id'] == $_SESSION['user']['id']) {
+            Review::delete($id);
+            header("Location: /books/{$review['book_id']}");
+            exit;
+        } else {
+            echo "Vous ne pouvez pas supprimer cet avis.";
+        }
     }
 }
