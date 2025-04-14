@@ -5,7 +5,7 @@
     <title><?= $title ?></title>
     <link rel="stylesheet" href="/assets/style.css">
     <link rel="stylesheet" href="/assets/utils.css">
-    <?php if($_SERVER['REQUEST_URI'] == '/books/add' || $_SERVER['REQUEST_URI'] == '/books/edit' || $_SERVER['REQUEST_URI'] == '/books/add_author' || $_SERVER['REQUEST_URI'] == '/books/add_genre'): ?>
+    <?php if($_SERVER['REQUEST_URI'] == '/books/add' || $_SERVER['REQUEST_URI'] == '/books/edit' || $_SERVER['REQUEST_URI'] == '/books/add_author' || $_SERVER['REQUEST_URI'] == '/books/add_genre' || preg_match('#^/books/\d+/edit$#', $_SERVER['REQUEST_URI']) || $_SERVER['REQUEST_URI'] == '/register' || $_SERVER['REQUEST_URI'] == '/login'): ?>
         <link rel="stylesheet" href="/assets/forms.css">
     <?php elseif(preg_match('#^/books(/|$)#', $_SERVER['REQUEST_URI'])): ?>
         <link rel="stylesheet" href="/assets/book.css">

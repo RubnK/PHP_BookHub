@@ -190,21 +190,14 @@ class BookController {
             return;
         }
     
-        $pdo = Database::getConnection();
+        if (Review::hasUserAlreadyReviewed($book_id, $user_id)) {
+            echo "Vous avez déjà laissé un avis pour ce livre.";
+            return;
+        }
     
-        $stmt = $pdo->prepare("
-            INSERT INTO reviews (book_id, user_id, rating, comment)
-            VALUES (:book_id, :user_id, :rating, :comment)
-        ");
-        $stmt->bindParam(':book_id', $book_id);
-        $stmt->bindParam(':user_id', $user_id);
-        $stmt->bindParam(':rating', $rating);
-        $stmt->bindParam(':comment', $comment);
-    
-        $stmt->execute();
+        Review::add($book_id, $user_id, $rating, $comment);
     
         header("Location: /books/$book_id");
         exit;
     }
-    
 }
