@@ -16,6 +16,10 @@ class Router {
         $uri = rtrim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
         $method = $_SERVER['REQUEST_METHOD'];
 
+        if ($uri === '') {
+            $uri = '/';
+        }
+        
         foreach ($this->routes[$method] ?? [] as $route) {
             $pattern = "@^" . $route['path'] . "$@";
 

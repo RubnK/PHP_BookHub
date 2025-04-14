@@ -7,7 +7,7 @@ use PDO;
 class User {
     public static function create(string $username, string $email, string $password): bool {
         $pdo = Database::getConnection();
-        $hashed = password_hash($password, PASSWORD_DEFAULT);
+        $hashed = hash('sha256', $password);
 
         $stmt = $pdo->prepare("INSERT INTO users (username, email, password) VALUES (:username, :email, :password)");
         $stmt->bindParam(':username', $username);

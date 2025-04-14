@@ -13,6 +13,10 @@
     <label for="confirm">Confirmer le mot de passe :</label><br>
     <input type="password" name="confirm" id="confirm" required><br><br>
 
+    <?php if (isset($error)): ?>
+        <p style="color: red;"><?= htmlspecialchars($error) ?></p>
+    <?php endif; ?>
+
     <button type="submit">S'inscrire</button>
     <br>
     <p>Déjà inscrit ? <a href="/login">Connectez-vous</a></p>

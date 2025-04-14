@@ -27,10 +27,17 @@ class AuthController {
         $email = trim($_POST['email'] ?? '');
         $password = $_POST['password'] ?? '';
     
-        $user = \App\Models\User::findByEmail($email);
+        $user = User::findByEmail($email);
     
         if (!$user || !password_verify($password, $user['password'])) {
-            echo "Identifiants invalides.";
+            $error = "Identifiants invalides.";
+        }
+        
+        if ($error) {
+            $title = 'Connexion | BookHub';
+            require_once __DIR__ . '/../Views/includes/header.php';
+            require_once __DIR__ . '/../Views/login.php';
+            require_once __DIR__ . '/../Views/includes/footer.php';
             return;
         }
     
@@ -53,12 +60,18 @@ class AuthController {
         $confirm = $_POST['confirm'] ?? '';
 
         if (!$username || !$email || !$password || $password !== $confirm) {
-            echo "Tous les champs sont obligatoires et les mots de passe doivent correspondre.";
-            return;
+            $error = "Tous les champs sont obligatoires et les mots de passe doivent correspondre.";
         }
 
         if (User::findByEmail($email)) {
-            echo "Un compte existe déjà avec cet email.";
+            $error = "Un compte existe déjà avec cet email.";
+        }
+
+        if ($error) {
+            $title = 'Inscription | BookHub';
+            require_once __DIR__ . '/../Views/includes/header.php';
+            require_once __DIR__ . '/../Views/register.php';
+            require_once __DIR__ . '/../Views/includes/footer.php';
             return;
         }
 
