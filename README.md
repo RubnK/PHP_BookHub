@@ -96,7 +96,7 @@ CREATE DATABASE bookhub;
 -- Users, Authors, Genres, Books, Reviews, User_Books
 ```
 
-You’ll find the full schema in the `bdd/init.sql` file.
+You’ll find the full schema in the `database.sql` file.
 
 ---
 
@@ -105,7 +105,7 @@ You’ll find the full schema in the `bdd/init.sql` file.
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/RubnK/BookHub.git
+git clone https://github.com/RubnK/PHP_BookHub.git
 cd BookHub
 ```
 
