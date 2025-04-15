@@ -24,12 +24,6 @@ class Book {
         return $stmt->fetchAll();
     }
 
-    public static function getAllAuthors(): array {
-        $pdo = Database::getConnection();
-        $stmt = $pdo->query("SELECT * FROM authors ORDER BY name ASC");
-        return $stmt->fetchAll();
-    }
-
     public static function getBookById($id): ?array {
         $pdo = Database::getConnection();
         $stmt = $pdo->prepare("SELECT books.*, authors.name AS author_name, genres.name AS genre_name

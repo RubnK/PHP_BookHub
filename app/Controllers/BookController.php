@@ -3,6 +3,8 @@ namespace App\Controllers;
 
 use App\Models\Book;
 use App\Models\Review;
+use App\Models\Author;
+
 use App\Core\Database;
 
 class BookController {
@@ -54,7 +56,7 @@ class BookController {
 
     public function add() {
         $title = 'Ajouter un livre | BookHub';
-        $authors = Book::getAllAuthors();
+        $authors = Author::getAllAuthors();
         $genres = Book::getAllGenres();
         require_once __DIR__ . '/../Views/includes/header.php';
         require_once __DIR__ . '/../Views/book/add.php';
@@ -96,7 +98,7 @@ class BookController {
     public function edit($id) {
         $title = 'Modifier un livre | BookHub';
         $book = Book::getBookById($id);
-        $authors = Book::getAllAuthors();
+        $authors = Author::getAllAuthors();
         $genres = Book::getAllGenres();
         require_once __DIR__ . '/../Views/includes/header.php';
         require_once __DIR__ . '/../Views/book/edit.php';

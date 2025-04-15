@@ -17,6 +17,9 @@
     <?php if($_SERVER['REQUEST_URI'] == '/profil'): ?>
         <link rel="stylesheet" href="/assets/profil.css">
     <?php endif; ?>
+    <?php if(preg_match('#^/author(/|$)#', $_SERVER['REQUEST_URI'])): ?>
+        <link rel="stylesheet" href="/assets/author.css">
+    <?php endif; ?>
 </head>
 <body>
 <header>

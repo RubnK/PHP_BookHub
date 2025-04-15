@@ -7,6 +7,7 @@ use App\Core\Router;
 use App\Controllers\HomeController;
 use App\Controllers\AuthController;
 use App\Controllers\BookController;
+use App\Controllers\AuthorController;
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
 $dotenv->load();
@@ -59,6 +60,7 @@ $router->post('/books/(\d+)/add', function ($id) {
 $router->post('/books/(\d+)/remove', function ($id) {
     (new BookController())->removeFromList($id);
 });
+$router->get('/author/(\d+)', [new AuthorController(), 'show']);
 
 
 $router->run();

@@ -1,0 +1,188 @@
+/* Page Auteur */
+.author-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    animation: fadeIn 0.6s ease-out;
+}
+
+.author-page h2 {
+    color: var(--primary-color);
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+    position: relative;
+    display: inline-block;
+}
+
+.author-page h2::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 80px;
+    height: 3px;
+    background: var(--gradient-accent);
+    border-radius: 3px;
+}
+
+/* Dates de naissance/décès */
+.author-page > p {
+    font-style: italic;
+    color: var(--dark-color);
+    opacity: 0.8;
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+}
+
+/* Biographie */
+.author-bio {
+    background: rgba(233, 236, 239, 0.4);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    margin: 2rem 0;
+    border-left: 3px solid var(--accent-color);
+    transition: var(--transition-normal);
+}
+
+.author-bio:hover {
+    background: rgba(233, 236, 239, 0.6);
+    box-shadow: var(--shadow-sm);
+}
+
+.author-bio p {
+    line-height: 1.7;
+    color: var(--dark-color);
+    font-size: 1.05rem;
+}
+
+/* Séparateur */
+.author-page hr {
+    border: 0;
+    height: 1px;
+    background: linear-gradient(to right, 
+        transparent, 
+        var(--accent-color), 
+        transparent);
+    margin: 2.5rem 0;
+    opacity: 0.5;
+}
+
+/* Section Livres */
+.author-page h3 {
+    color: var(--primary-color);
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Liste de livres */
+.book-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 2rem;
+    padding: 1rem 0;
+}
+
+.book-item {
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-md);
+    transition: var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+    animation: fadeInUp 0.6s ease-out forwards;
+    opacity: 0;
+}
+
+.book-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.book-cover {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: var(--border-radius-sm);
+    margin-bottom: 1rem;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    transition: var(--transition-normal);
+}
+
+.book-item:hover .book-cover {
+    transform: scale(1.03);
+}
+
+/* Message "Aucun livre" */
+.book-list + p {
+    text-align: center;
+    padding: 2rem;
+    color: var(--dark-color);
+    background-color: rgba(233, 236, 239, 0.4);
+    border-radius: var(--border-radius);
+    font-style: italic;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Animation séquentielle pour les livres */
+.book-item:nth-child(1) { animation-delay: 0.1s; }
+.book-item:nth-child(2) { animation-delay: 0.2s; }
+.book-item:nth-child(3) { animation-delay: 0.3s; }
+.book-item:nth-child(4) { animation-delay: 0.4s; }
+.book-item:nth-child(5) { animation-delay: 0.5s; }
+.book-item:nth-child(n+6) { animation-delay: 0.6s; }
+
+/* Responsive */
+@media (max-width: 992px) {
+    .author-page {
+        padding: 1.5rem;
+    }
+    
+    .author-page h2 {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .book-list {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1.5rem;
+    }
+    
+    .author-bio {
+        padding: 1.2rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .author-page {
+        padding: 1rem;
+    }
+    
+    .book-list {
+        grid-template-columns: 1fr;
+    }
+    
+    .book-cover {
+        height: 160px;
+    }
+}

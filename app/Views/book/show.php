@@ -6,7 +6,7 @@
                 <h1><?= htmlspecialchars($book['title']) ?></h1>
                 
                 <div class="book-meta">
-                    <p><span class="meta-label">Auteur :</span> <?= htmlspecialchars($book['author_name']) ?></p>
+                    <p><span class="meta-label">Auteur :</span> <a href="/author/<?= $book['author_id'] ?>"><?= htmlspecialchars($book['author_name']) ?></a></p>
                     <p><span class="meta-label">Genre :</span> <?= htmlspecialchars($book['genre_name']) ?></p>
                     <p><span class="meta-label">Publication :</span> <?= htmlspecialchars($book['publication_date']) ?></p>
                 </div>
@@ -76,7 +76,9 @@
                                 <div class="rating-stars" data-rating="<?= $review['rating'] ?>"></div>
                             </div>
                             <p class="review-comment"><?= nl2br(htmlspecialchars($review['comment'])) ?></p>
-                            <a href="/reviews/delete/<?= $review['id'] ?>" class="delete-review" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet avis ?');">Supprimer</a>
+                            <?php if (isset($_SESSION['user']) && $_SESSION['user']['id'] == $review['user_id']): ?>
+                                <a href="/reviews/delete/<?= $review['id'] ?>" class="delete-review" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet avis ?');">Supprimer</a>
+                            <?php endif; ?>
                         </div>
                     <?php endforeach; ?>
                 </div>

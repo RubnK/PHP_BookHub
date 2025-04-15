@@ -66,6 +66,9 @@ class User {
         $stmt = $pdo->prepare("DELETE FROM reviews WHERE user_id = :id");
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
+        $stmt = $pdo->prepare("DELETE FROM user_books WHERE user_id = :id");
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
         $stmt = $pdo->prepare("DELETE FROM users WHERE id = :id");
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         return $stmt->execute();
