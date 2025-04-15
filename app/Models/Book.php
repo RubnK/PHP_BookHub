@@ -119,10 +119,40 @@ class Book {
         $stmt->execute(['user_id' => $userId]);
         return $stmt->fetchAll();
     }    
-    
+
     public static function removeFromUserList(int $userId, int $bookId): bool {
         $pdo = \App\Core\Database::getConnection();
         $stmt = $pdo->prepare("DELETE FROM user_books WHERE user_id = :user_id AND book_id = :book_id");
         return $stmt->execute(['user_id' => $userId, 'book_id' => $bookId]);
-    }    
+    }
+
+    public static function getRandomBook(): ?array {
+        $pdo = \App\Core\Database::getConnection();
+        $stmt = $pdo->query("
+            SELECT books.*, authors.name AS author_name, genres.name AS genre_name
+            FROM books
+            LEFT JOIN authors ON books.author_id = authors.id
+            LEFT JOIN genres ON books.genre_id = genres.id
+            ORDER BY RANDOM() LIMIT 1
+        ");
+        return $stmt->fetch() ?: null;
+    }
+
+    public static function getTopRatedBooks(int $limit = 5): array {
+        $pdo = \App\Core\Database::getConnection();
+        $stmt = $pdo->query("
+            SELECT b.*, a.name AS author_name, g.name AS genre_name, 
+                   ROUND(AVG(r.rating), 1) AS average_rating,
+                   COUNT(r.id) AS review_count
+            FROM books b
+            LEFT JOIN authors a ON b.author_id = a.id
+            LEFT JOIN genres g ON b.genre_id = g.id
+            JOIN reviews r ON b.id = r.book_id
+            GROUP BY b.id, a.name, g.name
+            HAVING COUNT(r.id) >= 2
+            ORDER BY average_rating DESC
+            LIMIT $limit
+        ");
+        return $stmt->fetchAll();
+    }
 }

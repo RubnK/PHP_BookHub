@@ -9,6 +9,8 @@
         <link rel="stylesheet" href="/assets/forms.css">
     <?php elseif(preg_match('#^/books(/|$)#', $_SERVER['REQUEST_URI'])): ?>
         <link rel="stylesheet" href="/assets/book.css">
+    <?php elseif($_SERVER['REQUEST_URI'] == '/'): ?>
+        <link rel="stylesheet" href="/assets/home.css">
     <?php elseif($_SERVER['REQUEST_URI'] == '/my_books'): ?>
         <link rel="stylesheet" href="/assets/my_books.css">
     <?php endif; ?>
@@ -23,6 +25,7 @@
         <a href="/books">Livres</a>
         <a href="/books/add">Ajouter un livre</a>
         <?php if (isset($_SESSION['user'])): ?>
+            <a href="/my_books">Ma bibliothèque</a>
             <a href="/profil">👤 <?= htmlspecialchars($_SESSION['user']['username']) ?></a>
             <a href="/logout">Déconnexion</a>
         <?php else: ?>

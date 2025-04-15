@@ -75,7 +75,7 @@ class BookController {
 
         $cover_image = null;
         if (!empty($_FILES['cover_image']['name'])) {
-            $targetDir = __DIR__ . '/../../uploads/';
+            $targetDir = __DIR__ . '/../../public/uploads/';
             $filename = uniqid() . '_' . basename($_FILES['cover_image']['name']);
             $targetFile = $targetDir . $filename;
             $fileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
