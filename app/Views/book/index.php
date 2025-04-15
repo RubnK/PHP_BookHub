@@ -1,5 +1,12 @@
 <h2>Liste des livres</h2>
 
+<form method="GET" action="/books" class="search-form">
+    <input type="text" name="q" placeholder="Rechercher un livre, un auteur ou un genre..." value="<?= htmlspecialchars($_GET['q'] ?? '') ?>">
+    <button type="submit">Rechercher</button>
+</form>
+<br>
+
+
 <?php if (empty($books)): ?>
     <p>Aucun livre pour le moment.</p>
 <?php else: ?>

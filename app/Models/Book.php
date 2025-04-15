@@ -90,4 +90,19 @@ class Book {
         $stmt->execute();
         return $stmt->fetchAll();
     }
+
+    public static function userHasBook(int $userId, int $bookId): bool {
+        $pdo = \App\Core\Database::getConnection();
+        $stmt = $pdo->prepare("SELECT COUNT(*) FROM user_books WHERE user_id = :user_id AND book_id = :book_id");
+        $stmt->execute(['user_id' => $userId, 'book_id' => $bookId]);
+        return $stmt->fetchColumn() > 0;
+    }
+    
+    public static function addToUserList(int $userId, int $bookId): bool {
+        $pdo = \App\Core\Database::getConnection();
+    
+        $stmt = $pdo->prepare("INSERT INTO user_books (user_id, book_id) VALUES (:user_id, :book_id)");
+        return $stmt->execute(['user_id' => $userId, 'book_id' => $bookId]);
+    }
+    
 }

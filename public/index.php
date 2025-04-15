@@ -52,5 +52,8 @@ $router->post('/books/(\d+)/delete', function ($id) {
 $router->get('/reviews/delete/(\d+)', function ($id) {
     (new BookController())->deleteReview($id);
 });
+$router->post('/books/(\d+)/add', function ($id) {
+    (new BookController())->addToList($id);
+});
 
 $router->run();

@@ -8,7 +8,12 @@ use App\Core\Database;
 class BookController {
     public function index() {
         $title = 'Liste des livres | BookHub';
-        $books = Book::getAllBooks();
+        if (isset($_GET['q'])) {
+            $query = trim($_GET['q']);
+            $books = Book::searchBooks($query);
+        } else {
+            $books = Book::getAllBooks();
+        }
         require_once __DIR__ . '/../Views/includes/header.php';
         require_once __DIR__ . '/../Views/book/index.php';
         require_once __DIR__ . '/../Views/includes/footer.php';
@@ -18,6 +23,30 @@ class BookController {
         $book = Book::getBookById($id);
         $title = $book['title'].' | BookHub';
         $reviews = Review::getByBookId($id);
+        $hasBook = false;
+        if (isset($_SESSION['user'])) {
+            $hasBook = Book::userHasBook($_SESSION['user']['id'], $id);
+        }
+
+        if ($book['publication_date']) {
+            $mois = [
+                1 => 'janvier', 2 => 'février', 3 => 'mars',
+                4 => 'avril', 5 => 'mai', 6 => 'juin',
+                7 => 'juillet', 8 => 'août', 9 => 'septembre',
+                10 => 'octobre', 11 => 'novembre', 12 => 'décembre'
+            ];
+        
+            $date = new \DateTime($book['publication_date']);
+            $jour = $date->format('j');
+            $moisNom = $mois[(int)$date->format('n')];
+            $annee = $date->format('Y');
+        
+            $book['publication_date'] = "$jour $moisNom $annee";
+        } else {
+            $book['publication_date'] = '';
+        }
+        
+
         require_once __DIR__ . '/../Views/includes/header.php';
         require_once __DIR__ . '/../Views/book/show.php';
         require_once __DIR__ . '/../Views/includes/footer.php';
@@ -221,4 +250,16 @@ class BookController {
             echo "Vous ne pouvez pas supprimer cet avis.";
         }
     }
+
+    public function addToList($id) {
+        if (!isset($_SESSION['user'])) {
+            header('Location: /login');
+            exit;
+        }
+    
+        Book::addToUserList($_SESSION['user']['id'], $id);
+        header("Location: /books/$id");
+        exit;
+    }
+    
 }

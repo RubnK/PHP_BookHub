@@ -10,6 +10,15 @@
                     <p><span class="meta-label">Genre :</span> <?= htmlspecialchars($book['genre_name']) ?></p>
                     <p><span class="meta-label">Publication :</span> <?= htmlspecialchars($book['publication_date']) ?></p>
                 </div>
+                <?php if (isset($_SESSION['user'])): ?>
+                    <?php if (!$hasBook): ?>
+                        <form method="POST" action="/books/<?= $book['id'] ?>/add" style="margin-bottom: 20px;">
+                            <button type="submit" class="add-to-list">Ajouter à ma bibliothèque</button>
+                        </form>
+                    <?php else: ?>
+                        <p class="already-in-list">Ce livre est déjà dans votre bibliothèque</p>
+                    <?php endif; ?>
+                <?php endif; ?>
             </div>
         </div>
 
