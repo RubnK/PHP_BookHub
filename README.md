@@ -106,7 +106,7 @@ You’ll find the full schema in the `database.sql` file.
 
 ```bash
 git clone https://github.com/RubnK/PHP_BookHub.git
-cd BookHub
+cd PHP_BookHub
 ```
 
 ### 2. Install PHP dependencies via Composer
