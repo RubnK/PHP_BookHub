@@ -27,6 +27,7 @@ $router->get('/profil/delete', [new AuthController(), 'deleteProfil']);
 $router->post('/password', [new AuthController(), 'updatePassword']);
 
 // Books
+$router->get('/my_books', [new BookController(), 'myBooks']);
 $router->get('/books', [new BookController(), 'index']);
 $router->get('/books/add', [new BookController(), 'add']);
 $router->post('/books/add', [new BookController(), 'store']);
@@ -55,5 +56,9 @@ $router->get('/reviews/delete/(\d+)', function ($id) {
 $router->post('/books/(\d+)/add', function ($id) {
     (new BookController())->addToList($id);
 });
+$router->post('/books/(\d+)/remove', function ($id) {
+    (new BookController())->removeFromList($id);
+});
+
 
 $router->run();

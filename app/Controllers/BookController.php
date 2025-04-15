@@ -262,4 +262,28 @@ class BookController {
         exit;
     }
     
+    public function myBooks() {
+        if (!isset($_SESSION['user'])) {
+            header('Location: /login');
+            exit;
+        }
+    
+        $title = 'Ma bibliothèque | BookHub';
+        $books = Book::getBooksOwnedByUser($_SESSION['user']['id']);
+    
+        require_once __DIR__ . '/../Views/includes/header.php';
+        require_once __DIR__ . '/../Views/book/my_books.php';
+        require_once __DIR__ . '/../Views/includes/footer.php';
+    }
+
+    public function removeFromList($id) {
+        if (!isset($_SESSION['user'])) {
+            header('Location: /login');
+            exit;
+        }
+    
+        Book::removeFromUserList($_SESSION['user']['id'], $id);
+        header('Location: /my_books');
+        exit;
+    }
 }

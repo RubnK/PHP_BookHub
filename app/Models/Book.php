@@ -92,17 +92,37 @@ class Book {
     }
 
     public static function userHasBook(int $userId, int $bookId): bool {
-        $pdo = \App\Core\Database::getConnection();
+        $pdo = Database::getConnection();
         $stmt = $pdo->prepare("SELECT COUNT(*) FROM user_books WHERE user_id = :user_id AND book_id = :book_id");
         $stmt->execute(['user_id' => $userId, 'book_id' => $bookId]);
         return $stmt->fetchColumn() > 0;
     }
     
     public static function addToUserList(int $userId, int $bookId): bool {
-        $pdo = \App\Core\Database::getConnection();
+        $pdo = Database::getConnection();
     
         $stmt = $pdo->prepare("INSERT INTO user_books (user_id, book_id) VALUES (:user_id, :book_id)");
         return $stmt->execute(['user_id' => $userId, 'book_id' => $bookId]);
     }
     
+    public static function getBooksOwnedByUser(int $userId): array {
+        $pdo = Database::getConnection();
+        $stmt = $pdo->prepare("
+            SELECT books.*, authors.name AS author_name, genres.name AS genre_name
+            FROM user_books
+            JOIN books ON user_books.book_id = books.id
+            LEFT JOIN authors ON books.author_id = authors.id
+            LEFT JOIN genres ON books.genre_id = genres.id
+            WHERE user_books.user_id = :user_id
+            ORDER BY books.title ASC
+        ");
+        $stmt->execute(['user_id' => $userId]);
+        return $stmt->fetchAll();
+    }    
+    
+    public static function removeFromUserList(int $userId, int $bookId): bool {
+        $pdo = \App\Core\Database::getConnection();
+        $stmt = $pdo->prepare("DELETE FROM user_books WHERE user_id = :user_id AND book_id = :book_id");
+        return $stmt->execute(['user_id' => $userId, 'book_id' => $bookId]);
+    }    
 }

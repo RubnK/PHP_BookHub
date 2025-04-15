@@ -6,10 +6,13 @@
 </form>
 <br>
 
-
-<?php if (empty($books)): ?>
-    <p>Aucun livre pour le moment.</p>
+<?php if (!empty($query)): ?>
+    <p class="search-info">🔍 <?= count($books) ?> résultat<?= count($books) > 1 ? 's' : '' ?> trouvé<?= count($books) > 1 ? 's' : '' ?> pour "<strong><?= htmlspecialchars($query) ?></strong>"</p>
 <?php else: ?>
+    <p class="search-info">📚 <?= count($books) ?> livre<?= count($books) > 1 ? 's' : '' ?> trouvé<?= count($books) > 1 ? 's' : '' ?></p>
+<?php endif; ?>
+
+<?php if (!empty($books)): ?>
     <ul class="book-list">
         <?php foreach ($books as $book): ?>
             <a href ="/books/<?= $book['id'] ?>">

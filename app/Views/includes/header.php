@@ -9,6 +9,8 @@
         <link rel="stylesheet" href="/assets/forms.css">
     <?php elseif(preg_match('#^/books(/|$)#', $_SERVER['REQUEST_URI'])): ?>
         <link rel="stylesheet" href="/assets/book.css">
+    <?php elseif($_SERVER['REQUEST_URI'] == '/my_books'): ?>
+        <link rel="stylesheet" href="/assets/my_books.css">
     <?php endif; ?>
     <?php if($_SERVER['REQUEST_URI'] == '/profil'): ?>
         <link rel="stylesheet" href="/assets/profil.css">
