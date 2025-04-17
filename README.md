@@ -1,6 +1,6 @@
 # BookHub - A Collaborative Book Library
 
-**Authors :** [@RubnK](https://github.com/RubnK), [@yayou05](https://github.com/yayou05) & [@len233](https://github.com/len233)
+**Authors :** [@Ruben](https://github.com/RubnK), [@Raïssa](https://github.com/yayou05) & [@Hélène](https://github.com/len233)
 
 **BookHub** is a collaborative book tracking web application built with **PHP**, **PostgreSQL**, and **Vanilla JS**. It allows users to manage their personal library, post reviews, search for books, and explore the most loved titles in the community.
 
