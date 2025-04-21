@@ -225,7 +225,7 @@ class BookController {
             $error = "Vous avez déjà laissé un avis pour ce livre.";
         }
 
-        if ($error) {
+        if (isset($error) && $error) {
             $this->show($book_id, $error);
             return;
         }

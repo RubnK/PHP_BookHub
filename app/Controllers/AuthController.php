@@ -33,7 +33,7 @@ class AuthController {
             $error = "Identifiants invalides.";
         }
         
-        if ($error) {
+        if (isset($error) && $error) {
             $title = 'Connexion | BookHub';
             require_once __DIR__ . '/../Views/includes/header.php';
             require_once __DIR__ . '/../Views/login.php';
@@ -67,7 +67,7 @@ class AuthController {
             $error = "Un compte existe déjà avec cet email.";
         }
 
-        if ($error) {
+        if (isset($error) && $error) {
             $title = 'Inscription | BookHub';
             require_once __DIR__ . '/../Views/includes/header.php';
             require_once __DIR__ . '/../Views/register.php';
