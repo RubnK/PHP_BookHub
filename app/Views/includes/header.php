@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title><?= $title ?></title>
+    <link rel="icon" href="/assets/logo.png" type="image/png" />
     <link rel="stylesheet" href="/assets/style.css">
     <link rel="stylesheet" href="/assets/utils.css">
     <?php if($_SERVER['REQUEST_URI'] == '/books/add' || $_SERVER['REQUEST_URI'] == '/books/edit' || $_SERVER['REQUEST_URI'] == '/books/add_author' || $_SERVER['REQUEST_URI'] == '/books/add_genre' || preg_match('#^/books/\d+/edit$#', $_SERVER['REQUEST_URI']) || $_SERVER['REQUEST_URI'] == '/register' || $_SERVER['REQUEST_URI'] == '/login' || $_SERVER['REQUEST_URI'] == '/profil'): ?>
