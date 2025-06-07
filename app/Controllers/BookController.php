@@ -135,15 +135,18 @@ class BookController {
             exit;
         }
     
-        $name = trim($_POST['name'] ?? '');
-        $bio = trim($_POST['bio'] ?? '');
-        $birth_date = $_POST['birth_date'] ?? null;
-        $death_date = $_POST['death_date'] ?? null;
+        $name       = trim($_POST['name'] ?? '');
+        $bio        = trim($_POST['bio'] ?? '');
+        $birthDate  = trim($_POST['birth_date'] ?? '');
+        $deathDate  = trim($_POST['death_date'] ?? '');
     
         if (!$name) {
             echo "Le nom de l’auteur est obligatoire.";
             return;
         }
+
+        $birthDate = $birthDate === '' ? null : $birthDate;
+        $deathDate = $deathDate === '' ? null : $deathDate;
     
         $pdo = Database::getConnection();
     
