@@ -3,17 +3,17 @@ FROM php:8.2-apache
 
 # 2. Installation des extensions nécessaires + activation de rewrite
 RUN apt-get update \
-    && apt-get install -y \
-       git \
-       unzip \
-       libzip-dev \
-       libpq-dev \        # <— ajouté pour les headers PostgreSQL
-    && docker-php-ext-install \
-       zip \
-       pdo_pgsql \
-       pgsql \
-    && a2enmod rewrite \
-    && rm -rf /var/lib/apt/lists/*
+ && apt-get install -y \
+    git \
+    unzip \
+    libzip-dev \
+    libpq-dev \
+ && docker-php-ext-install \
+    zip \
+    pdo_pgsql \
+    pgsql \
+ && a2enmod rewrite \
+ && rm -rf /var/lib/apt/lists/*
 
 # 3. On dit à Apache de servir /public
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
